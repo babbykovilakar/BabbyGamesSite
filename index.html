@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LA5 – Minigames | BabbyGames</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="LA5 is a fast-paced arena action game for mobile. Drift, crash and survive in BombTag, Racing, Sumo and more modes." />
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #05070a;
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+    a { color: #4ea3ff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(5,7,10,0.94);
+      position: sticky;
+      top: 0; z-index: 10;
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-mark {
+      width: 28px; height: 28px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #ff6b3d, #ffcc3d);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: #111;
+      box-shadow: 0 0 12px rgba(255, 142, 80, 0.6);
+    }
+    .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .brand-text span:first-child { font-weight: 700; font-size: 15px; letter-spacing: 0.06em; }
+    .brand-text span:last-child { font-size: 11px; opacity: 0.7; }
+
+    .nav-links {
+      display: flex; gap: 18px; font-size: 14px;
+    }
+
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 24px 16px 72px;
+    }
+
+    /* Hero banner */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+      gap: 24px;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .banner {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #111;
+      min-height: 220px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.75);
+    }
+    .banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.9)),
+        url("banner.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.1);
+    }
+    .banner-content {
+      position: relative;
+      z-index: 1;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+    }
+
+    .banner-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .banner-pill-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #37ff9b;
+    }
+    .banner-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 2px 0;
+    }
+    .banner-sub {
+      font-size: 13px;
+      opacity: 0.85;
+      max-width: 420px;
+    }
+
+    .hero-copy-title {
+      font-size: clamp(30px, 4vw, 38px);
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+    .hero-copy-tagline { font-size: 15px; opacity: 0.9; margin-bottom: 16px; }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+      font-size: 12px;
+    }
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .cta-row { display: flex; gap: 10px; margin-bottom: 8px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 16px; border-radius: 999px;
+      background: linear-gradient(135deg, #ff7a3d, #ffcc3d);
+      border: none; cursor: pointer;
+      color: #111; font-size: 14px; font-weight: 600;
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent; color: #f5f5f5;
+      cursor: pointer; font-size: 13px;
+    }
+
+    .small-note { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+
+    .section { margin-top: 40px; }
+    .section h2 { font-size: 20px; margin-bottom: 8px; }
+    .section p { font-size: 14px; opacity: 0.9; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px; margin-top: 14px;
+    }
+    .feature-card {
+      background: #0c0f16;
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px; margin-top: 14px;
+    }
+    .mode-card {
+      background: #0e1118;
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .mode-glow {
+      position: absolute;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,122,61,0.32), transparent 60%);
+      opacity: 0.4;
+      top: -60px; right: -40px;
+      pointer-events: none;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 16px;
+      font-size: 12px;
+      opacity: 0.75;
+      text-align: center;
+      background: #04060a;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .banner { order: -1; }
+      .nav-links { display: none; }
+    }
+  </style>
+
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="nav-left">
+      <div class="logo-mark">L5</div>
+      <div class="brand-text">
+        <span>LA5</span>
+        <span>Arena Action Game</span>
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <a href="index.html">Game</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO SECTION WITH BANNER -->
+  <section class="hero">
+
+    <!-- LEFT SIDE -->
+    <div class="hero-copy">
+      <h1 class="hero-copy-title">
+        <span style="white-space: nowrap;">Drive, Push-out, Smash, Survive.</span><br />
+        Welcome to LA5 by BabbyGames.
+      </h1>
+
+      <p class="hero-copy-tagline">
+        Limitless Action 5 drops you into 5 distinctive game modes inside a fast-paced mobile arena. just cars flying, explosions hitting, and tight rounds packed with chaos.
+      </p>
+
+      <div class="badge-row">
+        <div class="badge">Android · In Development</div>
+        <div class="badge">Action · Arena · Vehicles</div>
+        <div class="badge">Online Cloud Saving</div>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn-primary"><span>▶</span><span>Coming soon to mobile</span></button>
+        <button class="btn-ghost" onclick="window.location.href='mailto:babbygames17@gmail.com'">📧 Get in touch</button>
+        <button class="btn-ghost" onclick="window.location.href='https://x.com/babbygames17'">X(Twitter)</button>
+        <button class="btn-ghost" onclick="window.location.href='https://www.youtube.com/@BabbyGames17'">YouTube</button>
+      </div>
+
+      <p class="small-note">
+        LA5 is still in active development. Screens, gameplay and features may change before release.
+      </p>
+    </div>
+
+    <!-- RIGHT SIDE (BANNER) -->
+    <div class="banner">
+      <div class="banner-content">
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ABOUT SECTION -->
+  <section class="section">
+    <h2>What is LA5?</h2>
+    <p>
+      Limitless Action 5 is a mobile arena action game built around quick matches, responsive vehicles and clean, readable chaos. Instead of a huge open world, LA5 drops you into focused arenas with clear rules: stay alive, outplay everyone, and make it stylish.
+    </p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-tag">Gameplay</div>
+        <h3>Short rounds, big moments</h3>
+        <p>
+          Matches are built to fit into a break — but still deliver “one more game” energy. Start, crash, respawn, repeat.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-tag">Progress</div>
+        <h3>Unlock & customize</h3>
+        <p>
+          Earn rewards as you play — new vehicles, styles and more, backed up using online cloud saves.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- GAME MODES -->
+  <section class="section">
+    <h2>Game Modes</h2>
+    <p>LA5 features 5 distinctive game modes:</p>
+
+    <div class="modes-grid">
+
+      <article class="mode-card">
+        <div class="mode-glow"></div>
+        <div class="mode-chip">Mode</div>
+        <div class="mode-name">BombTag</div>
+        <p class="mode-desc">
+          One car holds the bomb. Hit someone to pass it — or explode trying.
+        </p>
+        <p class="mode-tagline">Keep moving. Keep dodging.</p>
+      </article>
+
+      <article class="mode-card">
+        <div class="mode-glow" style="background: radial-gradient(circle, rgba(78,163,255,0.32), transparent 60%);"></div>
+        <div class="mode-chip">Mode</div>
+        <div class="mode-name">Racing</div>
+        <p class="mode-desc">
+          Risky shortcuts and aggressive stunts. No cruising — just broken, floating tracks built for jumps and full-speed destruction.
+        </p>
+        <p class="mode-tagline">Tap the brakes. Then send it.</p>
+      </article>
+
+      <article class="mode-card">
+        <div class="mode-glow" style="background: radial-gradient(circle, rgba(240,96,255,0.32), transparent 60%);"></div>
+        <div class="mode-chip">Mode</div>
+        <div class="mode-name">Sumo</div>
+        <p class="mode-desc">
+          A platform, a boundary, and too many cars. Stay inside the zone while everyone pushes you out.
+        </p>
+        <p class="mode-tagline">Last car standing wins.</p>
+      </article>
+
+      <article class="mode-card">
+        <div class="mode-glow" style="background: radial-gradient(circle, rgba(255,204,61,0.32), transparent 60%);"></div>
+        <div class="mode-chip">AI Enemies</div>
+        <div class="mode-name">…and more coming</div>
+        <p class="mode-desc">
+          The entire game runs on fast, reactive AI bots that chase, dodge and fight you like real players. Multiplayer is planned, but right now the AI is the chaos.
+        </p>
+        <p class="mode-tagline">LA5 evolves with every update.</p>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- CONTACT -->
+  <section class="section">
+    <h2>Stay in Touch</h2>
+    <p>Follow updates or reach out:</p>
+
+    <p>Email: <a href="mailto:babbygames17@gmail.com">babbygames17@gmail.com</a></p>
+    <p>Youtube: <a href="https://www.youtube.com/@BabbyGames17">youtube.com/@BabbyGames17</a></p>
+    <p>Reddit: <a href="https://www.reddit.com/user/BabbyGames17/">reddit.com/u/BabbyGames17</a></p>
+    <p>Twitter: <a href="https://x.com/babbygames17">twitter.com/babbygames17</a></p>
+    <p>Instagram: <a href="https://www.instagram.com/babbygames/">instagram.com/babbygames</a></p>
+  </section>
+
+</main>
+
+
+<footer>
+  © <span id="year"></span> BabbyGames. All rights reserved.
+  · <a href="privacy.html">Privacy Policy</a>
+  · <a href="terms.html">Terms &amp; Conditions</a>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

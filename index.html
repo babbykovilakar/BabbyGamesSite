@@ -72,7 +72,6 @@
 
     .banner {
       position: relative;
-      border-radius: 18px;
       overflow: hidden;
       background: #111;
       min-height: 220px;
@@ -82,12 +81,8 @@
       content: "";
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.9)),
-        url("banner.jpg");
-      background-size: cover;
-      background-position: center;
-      filter: saturate(1.1);
+      background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.9));
+      z-index: 1;
     }
     .banner-content {
       position: relative;
@@ -243,7 +238,7 @@
 <header>
   <div class="nav">
     <div class="nav-left">
-      <div class="logo-mark">L5</div>
+      <img src="icon.png" style="width:64px;height:64px;border-radius:9px;" alt="LA5" />
       <div class="brand-text">
         <span>LA5</span>
         <span>Arena Action Game</span>
@@ -296,10 +291,11 @@
 
     <!-- RIGHT SIDE (BANNER) -->
     <div class="banner">
-      <div class="banner-content">
-        </div>
-
-      </div>
+      <video autoplay muted loop playsinline
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:fill;">
+        <source src="banner.mp4" type="video/mp4">
+      </video>
+      <div class="banner-content"></div>
     </div>
 
   </section>
